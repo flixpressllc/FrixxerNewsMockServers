@@ -1,0 +1,63 @@
+#! /usr/bin/env node
+
+const { join } = require('path')
+const shell = require('shelljs')
+const yargs = require('yargs')
+const getFilePath = (file) => join(__dirname, '..', file)
+
+yargs // eslint-disable-line no-unused-expressions
+  .usage('$0 command')
+  .command(
+    'main',
+    'Starts the mock server for the main site',
+    (yargs) => {
+      return yargs
+        .option('database', {
+          alias: 'd',
+          describe: 'Specify a path to a database file. Make sure it is a proper relative path (starting with ./ or ../) or absolute path.',
+          type: 'string'
+        })
+        .option('port', {
+          alias: 'p',
+          describe: 'specify a port',
+          type: 'number',
+          default: 3000
+        })
+    },
+    (argv) => {
+      if (argv.database) {
+        shell.exec(`node "${getFilePath('server.js')}" --port ${argv.port} --database ${argv.database}`)
+      } else {
+        shell.exec(`node "${getFilePath('server.js')}" --port ${argv.port}`)
+      }
+    }
+  )
+  .command(
+    'studio',
+    'starts the mock server for the local studio',
+    (yargs) => {
+      return yargs
+        .option('port', {
+          alias: 'p',
+          describe: 'specify a port',
+          type: 'number',
+          default: 4201
+        })
+    },
+    (argv) => {
+      shell.exec(`node "${getFilePath('app-server.js')}" --port ${argv.port}`)
+    }
+  )
+  .command(
+    'data',
+    'Echoes the database file so you can have a starting point to create your own. Perhaps you should redirect output into a file using ">".',
+    (yargs) => {},
+    (argv) => {
+      const cat = shell.cat(`${getFilePath('db.js')}`).stdout
+      console.log(cat)
+    }
+  )
+  .demandCommand(1, 'must provide a valid command')
+  .help('h')
+  .alias('h', 'help')
+  .argv
