@@ -8,7 +8,7 @@
   "bin": {
     "frixxer-news-mock-servers": "bin/frixxer-news-mock-servers"
   },
-  "author": "@happpycollision",
+  "author": "@happycollision",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
