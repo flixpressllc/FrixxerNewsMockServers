@@ -58,6 +58,15 @@ yargs // eslint-disable-line no-unused-expressions
     (argv) => startStudioMockServer(argv)
   )
   .command(
+    'both',
+    'starts the mock servers for the local studio and the main studio',
+    (yargs) => {},
+    (argv) => {
+      startMainMockServer(argv)
+      setTimeout(() => startStudioMockServer(argv), 1000) // making sure the other is started
+    }
+  )
+  .command(
     'data',
     'Echoes the database file so you can have a starting point to create your own. Perhaps you should redirect output into a file using ">".',
     (yargs) => {},
