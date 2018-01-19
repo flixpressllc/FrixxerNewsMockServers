@@ -10,7 +10,7 @@ const thisIpAddress = require(getFilePath('./ipAddressHelpers')).getMyIpAddress(
 function startMainMockServer (argv) {
   const commandString = [`node "${getFilePath('server.js')}" --port ${argv['main-port']}`]
   if (argv.database) commandString.push(`--database ${argv.database}`)
-  shell.exec(commandString.join(' '))
+  shell.exec(commandString.join(' '), {async: true})
 }
 
 function startStudioMockServer (argv) {
@@ -20,7 +20,7 @@ function startStudioMockServer (argv) {
   const endpoint = argv.reportEndpoint || `http://${thisIpAddress}:${argv['main-port']}/studiomachines/report`
   commandString.push(`--report-endpoint ${endpoint}`)
 
-  shell.exec(commandString.join(' '))
+  shell.exec(commandString.join(' '), {async: true})
 }
 
 yargs // eslint-disable-line no-unused-expressions
