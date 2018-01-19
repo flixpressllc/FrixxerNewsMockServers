@@ -7,6 +7,22 @@ const getFilePath = (file) => join(__dirname, '..', file)
 
 const thisIpAddress = require(getFilePath('./ipAddressHelpers')).getMyIpAddress()
 
+function startMainMockServer (argv) {
+  const commandString = [`node "${getFilePath('server.js')}" --port ${argv['main-port']}`]
+  if (argv.database) commandString.push(`--database ${argv.database}`)
+  shell.exec(commandString.join(' '))
+}
+
+function startStudioMockServer (argv) {
+  const commandString = [`node "${getFilePath('app-server.js')}"`]
+  commandString.push(`--port ${argv['studio-port']}`)
+
+  const endpoint = argv.reportEndpoint || `http://${thisIpAddress}:${argv['main-port']}/studiomachines/report`
+  commandString.push(`--report-endpoint ${endpoint}`)
+
+  shell.exec(commandString.join(' '))
+}
+
 yargs // eslint-disable-line no-unused-expressions
   .usage('$0 command')
   .option('database', {
@@ -33,25 +49,13 @@ yargs // eslint-disable-line no-unused-expressions
     'main',
     'Starts the mock server for the main site',
     (yargs) => {},
-    (argv) => {
-      const commandString = [`node "${getFilePath('server.js')}" --port ${argv['main-port']}`]
-      if (argv.database) commandString.push(`--database ${argv.database}`)
-      shell.exec(commandString.join(' '))
-    }
+    (argv) => startMainMockServer(argv)
   )
   .command(
     'studio',
     'starts the mock server for the local studio',
     (yargs) => {},
-    (argv) => {
-      const commandString = [`node "${getFilePath('app-server.js')}"`]
-      commandString.push(`--port ${argv['studio-port']}`)
-
-      const endpoint = argv.reportEndpoint || `http://${thisIpAddress}:${argv['main-port']}/studiomachines/report`
-      commandString.push(`--report-endpoint ${endpoint}`)
-
-      shell.exec(commandString.join(' '))
-    }
+    (argv) => startStudioMockServer(argv)
   )
   .command(
     'data',
