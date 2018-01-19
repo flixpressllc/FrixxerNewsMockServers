@@ -5,6 +5,8 @@ const shell = require('shelljs')
 const yargs = require('yargs')
 const getFilePath = (file) => join(__dirname, '..', file)
 
+const thisIpAddress = require(getFilePath('./ipAddressHelpers')).getMyIpAddress()
+
 yargs // eslint-disable-line no-unused-expressions
   .usage('$0 command')
   .option('database', {
@@ -16,6 +18,16 @@ yargs // eslint-disable-line no-unused-expressions
     describe: 'specify a port for the main server',
     type: 'number',
     default: 3000
+  })
+  .option('studio-port', {
+    describe: 'specify a port',
+    type: 'number',
+    default: 4201
+  })
+  .option('report-endpoint', {
+    describe: 'Override the remote endpoint for reporting this server\'s IP address/port. This option by default will point to the main mock server, even if you change its port.',
+    type: 'string',
+    defaultDescription: `http://${thisIpAddress}:3000/studiomachines/report`
   })
   .command(
     'main',
@@ -30,17 +42,15 @@ yargs // eslint-disable-line no-unused-expressions
   .command(
     'studio',
     'starts the mock server for the local studio',
-    (yargs) => {
-      return yargs
-        .option('port', {
-          alias: 'p',
-          describe: 'specify a port',
-          type: 'number',
-          default: 4201
-        })
-    },
+    (yargs) => {},
     (argv) => {
-      shell.exec(`node "${getFilePath('app-server.js')}" --port ${argv.port}`)
+      const commandString = [`node "${getFilePath('app-server.js')}"`]
+      commandString.push(`--port ${argv['studio-port']}`)
+
+      const endpoint = argv.reportEndpoint || `http://${thisIpAddress}:${argv['main-port']}/studiomachines/report`
+      commandString.push(`--report-endpoint ${endpoint}`)
+
+      shell.exec(commandString.join(' '))
     }
   )
   .command(

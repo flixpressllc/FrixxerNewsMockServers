@@ -3,9 +3,25 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { getPreviewUrl } = require('./server-support')
 const http = require('http')
+const request = require('request')
 const port = argv.port
+const { getMyIpAddress } = require('./ipAddressHelpers')
+const givenRemoteServerEndpoint = argv.reportEndpoint
+
+function reportMyIp () {
+  const options = {
+    url: givenRemoteServerEndpoint,
+    json: true,
+    body: {data: getMyIpAddress() + ':' + port},
+    method: 'POST'
+  }
+  request(options, (err, response) => {
+    if (err) console.log(err)
+  })
+}
 
 function startNewServer () {
+  reportMyIp()
   const server = express()
   const newInMemory = () => ({ shotState: 'NoShot' })
   let inMemory = newInMemory()
