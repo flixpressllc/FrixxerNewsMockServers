@@ -59,6 +59,7 @@ function startNewServer () {
   server.get('/segmenttypes/:id/newSegment', support.getNewSegment)
   server.get('/packagetemplates/:id/newPackage', support.getNewPackage)
   server.get('/shots/fulfillment', support.getUnfulfilledShots(router.db))
+  server.get('/studiomachines/localIpAddress', support.getLocalIpAddress)
 
   server.post('/upload', uploadFile(`http://localhost:${port}${staticAssetsUrlPrefix}`))
   server.use(staticAssetsUrlPrefix, serveUploadedFiles)

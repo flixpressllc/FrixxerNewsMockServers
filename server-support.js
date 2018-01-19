@@ -1,4 +1,5 @@
 const request = require('request')
+const { getMyIpAddress } = require('./ipAddressHelpers')
 
 class Shot {
   constructor (shotLayout) {
@@ -225,5 +226,9 @@ module.exports = {
       res.jsonp({data: shots})
     }
   },
-  getPreviewUrl: getPreviewUrl
+  getPreviewUrl: getPreviewUrl,
+  getLocalIpAddress: (req, res) => {
+    console.log('here', getMyIpAddress())
+    res.jsonp({data: getMyIpAddress()})
+  }
 }
