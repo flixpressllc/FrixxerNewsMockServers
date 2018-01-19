@@ -454,6 +454,12 @@ const data = {
       mediaFileId: 2,
       url: 'http://localhost:3000/files/soccer-kick-face.mp4'
     }
+  ],
+  studiomachines: [
+    {
+      id: 1,
+      localIpAddress: '192.168.1.102:4201'
+    }
   ]
 }
 

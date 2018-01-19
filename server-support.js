@@ -227,8 +227,14 @@ module.exports = {
     }
   },
   getPreviewUrl: getPreviewUrl,
-  getLocalIpAddress: (req, res) => {
-    console.log('here', getMyIpAddress())
-    res.jsonp({data: getMyIpAddress()})
+  getLocalIpAddress: (lodashWrappedDb) => (req, res) => {
+    const db = lodashWrappedDb.getState()
+    res.jsonp({data: db.studiomachines[0].localIpAddress})
+  },
+  studioMachineReport: (lodashWrappedDb) => (req, res) => {
+    const db = lodashWrappedDb.getState()
+    const ip = req.body.localIpAddress
+    db.studiomachines[0].localIpAddress = ip
+    res.end()
   }
 }
