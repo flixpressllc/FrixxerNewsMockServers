@@ -7,29 +7,24 @@ const getFilePath = (file) => join(__dirname, '..', file)
 
 yargs // eslint-disable-line no-unused-expressions
   .usage('$0 command')
+  .option('database', {
+    alias: 'd',
+    describe: 'Specify a path to a database file. Make sure it is a proper relative path (starting with ./ or ../) or absolute path.',
+    type: 'string'
+  })
+  .option('main-port', {
+    describe: 'specify a port for the main server',
+    type: 'number',
+    default: 3000
+  })
   .command(
     'main',
     'Starts the mock server for the main site',
-    (yargs) => {
-      return yargs
-        .option('database', {
-          alias: 'd',
-          describe: 'Specify a path to a database file. Make sure it is a proper relative path (starting with ./ or ../) or absolute path.',
-          type: 'string'
-        })
-        .option('port', {
-          alias: 'p',
-          describe: 'specify a port',
-          type: 'number',
-          default: 3000
-        })
-    },
+    (yargs) => {},
     (argv) => {
-      if (argv.database) {
-        shell.exec(`node "${getFilePath('server.js')}" --port ${argv.port} --database ${argv.database}`)
-      } else {
-        shell.exec(`node "${getFilePath('server.js')}" --port ${argv.port}`)
-      }
+      const commandString = [`node "${getFilePath('server.js')}" --port ${argv['main-port']}`]
+      if (argv.database) commandString.push(`--database ${argv.database}`)
+      shell.exec(commandString.join(' '))
     }
   )
   .command(
