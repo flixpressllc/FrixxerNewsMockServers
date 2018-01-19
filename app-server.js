@@ -12,7 +12,7 @@ function reportMyIp () {
   const options = {
     url: givenRemoteServerEndpoint,
     json: true,
-    body: {data: getMyIpAddress() + ':' + port},
+    body: {data: {localIpAddress: getMyIpAddress() + ':' + port}},
     method: 'POST'
   }
   request(options, (err, response) => {
