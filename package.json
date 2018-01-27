@@ -1,9 +1,10 @@
 {
   "name": "@flixpress/frixxer-news-mock-servers",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Local dev for Frixxer News apps",
   "scripts": {
-    "fnmock": "frixxer-mock-servers"
+    "fnmock": "frixxer-mock-servers",
+    "prepublishOnly": "node prepublish.js"
   },
   "bin": {
     "frixxer-news-mock-servers": "bin/frixxer-news-mock-servers"
@@ -11,6 +12,7 @@
   "author": "@happycollision",
   "license": "ISC",
   "devDependencies": {
+    "eol": "^0.9.1",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.8.0",

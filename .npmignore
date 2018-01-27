@@ -3,3 +3,4 @@
 .eslintrc
 yarn.lock
 package-lock.json
+prepublish.js
