@@ -1,7 +1,8 @@
+const argv = require('yargs').argv
 const multer = require('multer')
 const { join } = require('path')
 const serveStatic = require('express').static
-const keepDir = join(__dirname, '..', 'uploads')
+const keepDir = argv.uploadDir
 const sessionStorageDir = join(keepDir, 'tmp')
 const mkdirp = require('mkdirp')
 

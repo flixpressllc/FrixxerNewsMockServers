@@ -8,7 +8,7 @@ const getFilePath = (file) => join(__dirname, '..', file)
 const thisIpAddress = require(getFilePath('./ipAddressHelpers')).getMyIpAddress()
 
 function startMainMockServer (argv) {
-  const commandString = [`node "${getFilePath('server.js')}" --port ${argv['main-port']}`]
+  const commandString = [`node "${getFilePath('server.js')}" --port ${argv['main-port']} --upload-dir ${argv.uploadDir}`]
   if (argv.database) commandString.push(`--database ${argv.database}`)
   shell.exec(commandString.join(' '), {async: true})
 }
@@ -29,6 +29,12 @@ yargs // eslint-disable-line no-unused-expressions
     alias: 'd',
     describe: 'Specify a path to a database file. Make sure it is a proper relative path (starting with ./ or ../) or absolute path.',
     type: 'string'
+  })
+  .option('upload-dir', {
+    alias: 'u',
+    describe: 'Specify a path to an uploaded file directory. This folder will be served statically and will receive any file uploads from the application. Make sure it is a proper relative path (starting with ./ or ../) or absolute path.',
+    type: 'string',
+    default: './uploads'
   })
   .option('main-port', {
     describe: 'specify a port for the main server',
