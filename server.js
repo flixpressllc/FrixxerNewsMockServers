@@ -10,7 +10,9 @@ const support = require('./server-support')
 const { uploadFile, serveUploadedFiles } = require('./upload-support')
 const port = argv.port
 const staticAssetsUrlPrefix = '/files'
-const pathToDbFile = argv.database || './db.js'
+const pathToDbFile = path.join(process.cwd(), argv.database) || path.join(__dirname, 'db.js')
+
+console.log(pathToDbFile)
 
 function startNewServer () {
   const server = jsonServer.create()
@@ -95,7 +97,7 @@ function startNewServer () {
   const resetServer = http.createServer(resetSiblingServer)
   resetServer.listen(3001, '127.0.0.1')
 
-  const watcher = chokidar.watch(path.join(__dirname, pathToDbFile))
+  const watcher = chokidar.watch(pathToDbFile)
 
   watcher.on('change', () => reset())
 })()

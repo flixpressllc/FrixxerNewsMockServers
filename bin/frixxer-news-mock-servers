@@ -27,7 +27,7 @@ yargs // eslint-disable-line no-unused-expressions
   .usage('$0 command')
   .option('database', {
     alias: 'd',
-    describe: 'Specify a path to a database file. Make sure it is a proper relative path (starting with ./ or ../) or absolute path.',
+    describe: 'Specify a path to a database file. Make sure it is a proper relative path (starting with ./ or ../) or absolute path. If you do not provide a database file, then default data will be used. (See the "data" command.)',
     type: 'string'
   })
   .option('upload-dir', {
