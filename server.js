@@ -54,6 +54,11 @@ function startNewServer () {
     }
   })
 
+  server.get('/tokencheck', (req, res) => {
+    res.statusCode = 200
+    res.send()
+  })
+
   server.get('/shotlayouts/new', support.getNewShotLayout)
   server.get('/shotlayouttags/new', support.getNewShotLayoutTag)
   server.get('/newscasts/new', support.getNewNewscast)
