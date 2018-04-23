@@ -1,6 +1,6 @@
 {
   "name": "@flixpress/frixxer-news-mock-servers",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Local dev for Frixxer News apps",
   "scripts": {
     "fnmock": "frixxer-mock-servers",

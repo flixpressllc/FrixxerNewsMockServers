@@ -49,6 +49,8 @@ function startNewServer () {
     if (req.headers.authorization !== `Bearer ${fakeToken}`) {
       res.statusCode = 401
       res.jsonp({errors: ['Invalid length for a Base-64 char array or string.'], httpStatusCode: 401, appSpecificCode: 'invalid-token'})
+    } else {
+      next()
     }
   })
 
