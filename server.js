@@ -11,8 +11,9 @@ const { uploadFile, serveUploadedFiles } = require('./upload-support')
 const port = argv.port
 const staticAssetsUrlPrefix = '/files'
 const pathToDbFile = path.join(process.cwd(), argv.database) || path.join(__dirname, 'db.js')
+const fakeToken = 'somekindatoken'
 
-console.log(pathToDbFile)
+console.log('Using database file at ' + pathToDbFile)
 
 function startNewServer () {
   const server = jsonServer.create()
@@ -30,7 +31,7 @@ function startNewServer () {
   server.use(jsonServerMiddlewares)
 
   server.post('/token', (req, res) => {
-    res.jsonp({access_token: 'somekindatoken'})
+    res.jsonp({access_token: fakeToken})
   })
 
   // To handle POST, PUT and PATCH you need to use a body-parser
@@ -42,6 +43,13 @@ function startNewServer () {
     }
     // Continue to JSON Server router
     next()
+  })
+
+  server.use((req, res, next) => {
+    if (req.headers.authorization !== fakeToken) {
+      res.statusCode = 401
+      res.jsonp({errors: ['Invalid length for a Base-64 char array or string.'], httpStatusCode: 401, appSpecificCode: 'invalid-token'})
+    }
   })
 
   server.get('/shotlayouts/new', support.getNewShotLayout)
