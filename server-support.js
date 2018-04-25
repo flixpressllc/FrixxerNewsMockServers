@@ -209,11 +209,30 @@ module.exports = {
   getUnfulfilledShots: (lodashWrappedDb) => {
     return (req, res) => {
       const db = lodashWrappedDb.getState()
-      const newscastIds = db.packages
+      const newscasts = db.packages
         .filter(p => p.isOrdered === true)
-        .map(p => p.relationships.newscast.id)
-      const segmentIds = newscastIds
-        .map(id => db.segments.filter(seg => seg.id === id))
+        .map(p => db.newscasts.find(n => p.relationships.newscast.id === n.id))
+      const segmentIds = newscasts
+        .map(n => n.relationships.segments)
+        .reduce((a, c) => a.concat(c), [])
+        .map(s => s.id)
+      const shots = segmentIds
+        .map(id => db.shots.filter(shot => {
+          const isInSegment = shot.relationships.segment.id === id
+          const hasCopy = shot.shotData.inputValues.find(iv => iv.name === 'copy')
+          return (isInSegment && hasCopy)
+        }))
+        .reduce((a, c) => a.concat(c), [])
+      res.jsonp({data: shots})
+    }
+  },
+  getUnfulfilledShotsByPackage: (lodashWrappedDb) => {
+    return (req, res) => {
+      const db = lodashWrappedDb.getState()
+      const newscastId = db.packages
+        .find(p => p.id.toString() === req.params.id).relationships.newscast.id
+      const newscast = db.newscasts.find(n => n.id === newscastId)
+      const segmentIds = newscast.relationships.segments
         .reduce((a, c) => a.concat(c), [])
         .map(seg => seg.id)
       const shots = segmentIds
