@@ -10,7 +10,7 @@ const support = require('./server-support')
 const { uploadFile, serveUploadedFiles } = require('./upload-support')
 const port = argv.port
 const staticAssetsUrlPrefix = '/files'
-const pathToDbFile = path.join(process.cwd(), argv.database) || path.join(__dirname, 'db.js')
+const pathToDbFile = argv.database ? path.join(process.cwd(), argv.database) : path.join(__dirname, 'db.js')
 const fakeToken = 'somekindatoken'
 
 console.log('Using database file at ' + pathToDbFile)
@@ -66,6 +66,7 @@ function startNewServer () {
   server.post('/newscasts/:id/preview', support.previewNewscast)
   server.post('/segments/:id/preview', support.previewSegment)
   server.post('/packages/:id/order', support.orderPackage(router.db))
+  server.post('/packages/:id/shotswithselffulfillment', support.getUnfulfilledShotsByPackage(router.db))
 
   server.get('/shotlayouts/:id/newShot', support.getNewShot)
   server.get('/segmenttypes/:id/newSegment', support.getNewSegment)
