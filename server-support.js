@@ -209,13 +209,13 @@ module.exports = {
   getUnfulfilledShots: (lodashWrappedDb) => {
     return (req, res) => {
       const db = lodashWrappedDb.getState()
-      const newscastIds = db.packages
+      const newscasts = db.packages
         .filter(p => p.isOrdered === true)
-        .map(p => p.relationships.newscast.id)
-      const segmentIds = newscastIds
-        .map(id => db.segments.filter(seg => seg.id === id))
+        .map(p => db.newscasts.find(n => p.relationships.newscast.id === n.id))
+      const segmentIds = newscasts
+        .map(n => n.relationships.segments)
         .reduce((a, c) => a.concat(c), [])
-        .map(seg => seg.id)
+        .map(s => s.id)
       const shots = segmentIds
         .map(id => db.shots.filter(shot => {
           const isInSegment = shot.relationships.segment.id === id
