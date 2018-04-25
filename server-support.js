@@ -226,6 +226,25 @@ module.exports = {
       res.jsonp({data: shots})
     }
   },
+  getUnfulfilledShotsByPackage: (lodashWrappedDb) => {
+    return (req, res) => {
+      const db = lodashWrappedDb.getState()
+      const newscastId = db.packages
+        .find(p => p.id.toString() === req.params.id).relationships.newscast.id
+      const newscast = db.newscasts.find(n => n.id === newscastId)
+      const segmentIds = newscast.relationships.segments
+        .reduce((a, c) => a.concat(c), [])
+        .map(seg => seg.id)
+      const shots = segmentIds
+        .map(id => db.shots.filter(shot => {
+          const isInSegment = shot.relationships.segment.id === id
+          const hasCopy = shot.shotData.inputValues.find(iv => iv.name === 'copy')
+          return (isInSegment && hasCopy)
+        }))
+        .reduce((a, c) => a.concat(c), [])
+      res.jsonp({data: shots})
+    }
+  },
   getPreviewUrl: getPreviewUrl,
   getLocalIpAddress: (lodashWrappedDb) => (req, res) => {
     const db = lodashWrappedDb.getState()

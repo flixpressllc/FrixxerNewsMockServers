@@ -66,11 +66,11 @@ function startNewServer () {
   server.post('/newscasts/:id/preview', support.previewNewscast)
   server.post('/segments/:id/preview', support.previewSegment)
   server.post('/packages/:id/order', support.orderPackage(router.db))
-  server.post('/packages/:id/shotswithselffulfillment', support.getUnfulfilledShotsByPackage(router.db))
-
+  
   server.get('/shotlayouts/:id/newShot', support.getNewShot)
   server.get('/segmenttypes/:id/newSegment', support.getNewSegment)
   server.get('/packagetemplates/:id/newPackage', support.getNewPackage)
+  server.get('/packages/:id/shotswithselffulfillment', support.getUnfulfilledShotsByPackage(router.db))
   server.get('/shots/fulfillment', support.getUnfulfilledShots(router.db))
   server.get('/studiomachines/localIpAddress', support.getLocalIpAddress(router.db))
   server.post('/studiomachines/report', support.studioMachineReport(router.db))
