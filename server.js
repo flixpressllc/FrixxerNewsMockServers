@@ -66,6 +66,7 @@ function startNewServer () {
   server.get('/packagetemplates/new', support.getNewPackageTemplate)
   server.get('/packages/complete', support.getComplete(router.db))
   server.get('/packages/pending', support.getPending(router.db))
+  server.get('/packages/requiresselffulfillment', support.getPackageIdsForSelfFulfillment(router.db))
 
   server.post('/shots/previewData', support.previewShotData)
   server.post('/newscasts/:id/preview', support.previewNewscast)
@@ -75,7 +76,7 @@ function startNewServer () {
   server.get('/shotlayouts/:id/newShot', support.getNewShot)
   server.get('/segmenttypes/:id/newSegment', support.getNewSegment)
   server.get('/packagetemplates/:id/newPackage', support.getNewPackage)
-  server.get('/packages/:id/shotswithselffulfillment', support.getUnfulfilledShotsByPackage(router.db))
+  server.get('/packages/:id/shotswithselffulfillment', support.getUnfulfilledShotIdsByPackage(router.db))
   server.get('/shots/fulfillment', support.getUnfulfilledShots(router.db))
   server.get('/studiomachines/localIpAddress', support.getLocalIpAddress(router.db))
   server.post('/studiomachines/report', support.studioMachineReport(router.db))

@@ -206,6 +206,13 @@ module.exports = {
       res.jsonp({data: packageData})
     }
   },
+  getPackageIdsForSelfFulfillment: (lodashWrappedDb) => {
+    return (req, res) => {
+      const db = lodashWrappedDb.getState()
+      const packageData = db.packages.filter(p => p.isOrdered === true && p.url == null)
+      res.jsonp({ data: packageData.map(p => p.id) })
+    }
+  },
   getUnfulfilledShots: (lodashWrappedDb) => {
     return (req, res) => {
       const db = lodashWrappedDb.getState()
@@ -226,7 +233,7 @@ module.exports = {
       res.jsonp({data: shots})
     }
   },
-  getUnfulfilledShotsByPackage: (lodashWrappedDb) => {
+  getUnfulfilledShotIdsByPackage: (lodashWrappedDb) => {
     return (req, res) => {
       const db = lodashWrappedDb.getState()
       const newscastId = db.packages
@@ -242,7 +249,7 @@ module.exports = {
           return (isInSegment && hasCopy)
         }))
         .reduce((a, c) => a.concat(c), [])
-      res.jsonp({data: shots})
+      res.jsonp({data: shots.map(s => s.id)})
     }
   },
   getPreviewUrl: getPreviewUrl,
