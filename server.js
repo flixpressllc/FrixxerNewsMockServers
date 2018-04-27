@@ -22,10 +22,15 @@ function startNewServer () {
   const router = jsonServer.router(require(pathToDbFile))
 
   router.render = (req, res) => {
-    res.jsonp({
-      // Wrap everything in a data property
-      data: res.locals.data
-    })
+    let data = res.locals.data;
+    if (req.method === 'DELETE') {
+      res.jsonp(data);
+    } else {
+      res.jsonp({
+        // Wrap everything in a data property
+        data
+      })
+    }
   }
 
   server.use(jsonServerMiddlewares)
@@ -80,6 +85,9 @@ function startNewServer () {
   server.get('/shots/fulfillment', support.getUnfulfilledShots(router.db))
   server.get('/studiomachines/localIpAddress', support.getLocalIpAddress(router.db))
   server.post('/studiomachines/report', support.studioMachineReport(router.db))
+
+  server.delete('/shots/:id', support.deleteShot(router.db))
+  server.delete('/segments/:id', support.deleteSegment(router.db))
 
   server.post('/upload', uploadFile(`http://localhost:${port}${staticAssetsUrlPrefix}`))
   server.use(staticAssetsUrlPrefix, serveUploadedFiles)

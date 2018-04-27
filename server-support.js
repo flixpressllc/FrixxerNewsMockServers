@@ -138,6 +138,30 @@ function getPreviewUrl () {
   return getFakeUrl()
 }
 
+function deleteShot(shotId, db) {
+  if (!db.shots.find(shot => shot.id === shotId)) {
+    return false
+  }
+  const segment = db.segments.find(s => s.relationships.shots.some(shot => shot.id === shotId))
+  segment.relationships.shots = segment.relationships.shots.filter(shot => shot.id !== shotId)
+  db.shots = db.shots.filter(shot => shot.id !== shotId)
+  return true
+}
+
+function deleteSegment(segmentId, db) {
+  const segment = db.segments.find(segment => segment.id === segmentId)
+  if (!segment) {
+    return false
+  }
+  segment.relationships.shots.forEach(shot => {
+    deleteShot(shot.id, db)
+  })
+  const newscast = db.newscasts.find(s => s.relationships.segments.some(segment => segment.id === segmentId))
+  newscast.relationships.segments = newscast.relationships.segments.filter(segment => segment.id !== segmentId)
+  db.segments = db.segments.filter(segment => segment.id !== segmentId);
+  return true
+}
+
 module.exports = {
   getNewShot: (req, res) => {
     req.runMiddleware(`/shotlayouts/${req.params.id}`, (code, body) => {
@@ -262,5 +286,27 @@ module.exports = {
     const ip = req.body.localIpAddress
     db.studiomachines[0].localIpAddress = ip
     res.end()
-  }
+  },
+  deleteShot: (lodashWrappedDb) => (req, res, next) => {
+    const shotId = parseInt((req.params.id), 10)
+    const db = lodashWrappedDb.getState()
+    if (deleteShot(shotId, db)) {
+      res.statusCode = 204
+      res.end()
+    } else {
+      res.statusCode = 404
+      res.end()
+    }
+  },
+  deleteSegment: (lodashWrappedDb) => (req, res, next) => {
+    const segmentId = parseInt((req.params.id), 10)
+    const db = lodashWrappedDb.getState()
+    if (deleteSegment(segmentId, db)) {
+      res.statusCode = 204
+      res.end()
+    } else {
+      res.statusCode = 404
+      res.end()
+    }
+  },
 }
