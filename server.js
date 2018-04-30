@@ -83,6 +83,8 @@ function startNewServer () {
   server.get('/packagetemplates/:id/newPackage', support.getNewPackage)
   server.get('/packages/:id/shotswithselffulfillment', support.getUnfulfilledShotIdsByPackage(router.db))
   server.get('/shots/fulfillment', support.getUnfulfilledShots(router.db))
+  server.get('/templates/my/:page/:pageSize', support.getTemplates(router.db))
+  
   server.get('/studiomachines/localIpAddress', support.getLocalIpAddress(router.db))
   server.post('/studiomachines/report', support.studioMachineReport(router.db))
 
