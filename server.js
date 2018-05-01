@@ -92,6 +92,7 @@ function startNewServer () {
   server.delete('/segments/:id', support.deleteSegment(router.db))
 
   server.post('/upload', uploadFile(`http://localhost:${port}${staticAssetsUrlPrefix}`))
+  server.post('/upload/selffulfillshot/:id', support.fulfillShot(router.db))
   server.use(staticAssetsUrlPrefix, serveUploadedFiles)
 
   server.use(router)

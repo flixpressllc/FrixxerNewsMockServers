@@ -287,6 +287,27 @@ module.exports = {
     db.studiomachines[0].localIpAddress = ip
     res.end()
   },
+  fulfillShot: (lodashWrappedDb) => (req, res, next) => {
+    const shotId = parseInt((req.params.id), 10)
+    const db = lodashWrappedDb.getState()
+    const shot = db.shots.find(s => s.id === shotId);
+
+    req.runMiddleware(`/upload`, (code, body) => {
+      const bodyObj = JSON.parse(body)
+      res.statusCode = code
+      if (code > 199 && code < 300) {
+        const dataName = db.shotlayouts.find(sl => sl.id === shot.relationships.shotLayout.id)
+          .definition.inputDefinitions.find(idef => idef.inputType === 'StudioVideo').name;
+        shot.shotData.inputValues = shot.shotData.inputValues.map(iv => {
+          if (iv.name === dataName) {
+            iv.values = [bodyObj.data[0].mediaFileId.toString()]
+          }
+          return iv;
+        })
+      }
+      res.jsonp(bodyObj)
+    })    
+  },
   deleteShot: (lodashWrappedDb) => (req, res, next) => {
     const shotId = parseInt((req.params.id), 10)
     const db = lodashWrappedDb.getState()
