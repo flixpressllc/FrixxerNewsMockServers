@@ -50,6 +50,8 @@ function startNewServer () {
     next()
   })
 
+  server.use(staticAssetsUrlPrefix, serveUploadedFiles)
+
   server.use((req, res, next) => {
     if (req.headers.authorization !== `Bearer ${fakeToken}`) {
       res.statusCode = 401
@@ -93,7 +95,6 @@ function startNewServer () {
 
   server.post('/upload', uploadFile(`http://localhost:${port}${staticAssetsUrlPrefix}`))
   server.post('/upload/selffulfillshot/:id', support.fulfillShot(router.db))
-  server.use(staticAssetsUrlPrefix, serveUploadedFiles)
 
   server.use(router)
 
