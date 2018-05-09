@@ -209,8 +209,8 @@ module.exports = {
   orderPackage: (lodashWrappedDb) => {
     return (req, res) => {
       const db = lodashWrappedDb.getState()
-      const pId = req.params.id
-      const packageData = db.packages.find(p => { p.id = pId })
+      const pId = parseInt(req.params.id, 10)
+      const packageData = db.packages.find(p => p.id === pId )
       packageData.isOrdered = true
       lodashWrappedDb.setState(db)
       res.jsonp(packageData)
