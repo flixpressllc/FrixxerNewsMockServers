@@ -37,7 +37,10 @@ function startNewServer () {
   server.use(jsonServerMiddlewares)
 
   server.post('/token', bodyParser.urlencoded({extended: false}), (req, res) => {
-    if (req.body.username && req.body.password) {
+    const {username, password} = req.body
+    const hasBothRequired = username && password
+    const isNotIntentionalError = ![username, password].some(s => s.toLowerCase() === 'error')
+    if (hasBothRequired && isNotIntentionalError) {
       res.jsonp({access_token: fakeToken})
     } else {
       res.statusCode = 403
