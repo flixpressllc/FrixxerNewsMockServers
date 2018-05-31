@@ -23,9 +23,9 @@ function startNewServer () {
   const router = jsonServer.router(require(pathToDbFile))
 
   router.render = (req, res) => {
-    let data = res.locals.data;
+    let data = res.locals.data
     if (req.method === 'DELETE') {
-      res.jsonp(data);
+      res.jsonp(data)
     } else {
       res.jsonp({
         // Wrap everything in a data property
@@ -36,11 +36,11 @@ function startNewServer () {
 
   server.use(jsonServerMiddlewares)
 
-  server.post('/token', bodyParser.urlencoded({extended: false}) , (req, res) => {
+  server.post('/token', bodyParser.urlencoded({extended: false}), (req, res) => {
     if (req.body.username && req.body.password) {
       res.jsonp({access_token: fakeToken})
     } else {
-      res.statusCode = 403;
+      res.statusCode = 403
       res.jsonp({errors: [{message: 'invalid username or password: NOT A CANNONICAL MESSAGE'}]})
     }
   })
@@ -85,14 +85,14 @@ function startNewServer () {
   server.post('/newscasts/:id/preview', support.previewNewscast)
   server.post('/segments/:id/preview', support.previewSegment)
   server.post('/packages/:id/order', support.orderPackage(router.db))
-  
+
   server.get('/shotlayouts/:id/newShot', support.getNewShot)
   server.get('/segmenttypes/:id/newSegment', support.getNewSegment)
   server.get('/packagetemplates/:id/newPackage', support.getNewPackage)
   server.get('/packages/:id/shotswithselffulfillment', support.getUnfulfilledShotIdsByPackage(router.db))
   server.get('/shots/fulfillment', support.getUnfulfilledShots(router.db))
   server.get('/templates/my/:page/:pageSize', support.getTemplates(router.db))
-  
+
   server.get('/studiomachines/localIpAddress', support.getLocalIpAddress(router.db))
   server.post('/studiomachines/report', support.studioMachineReport(router.db))
 
