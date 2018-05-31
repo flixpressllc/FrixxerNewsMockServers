@@ -1,6 +1,7 @@
 require('import-export')
 const argv = require('yargs').argv
 const path = require('path')
+const bodyParser = require('body-parser')
 const chokidar = require('chokidar')
 const jsonServer = require('json-server')
 const jsonServerMiddlewares = jsonServer.defaults()
@@ -35,8 +36,13 @@ function startNewServer () {
 
   server.use(jsonServerMiddlewares)
 
-  server.post('/token', (req, res) => {
-    res.jsonp({access_token: fakeToken})
+  server.post('/token', bodyParser.urlencoded({extended: false}) , (req, res) => {
+    if (req.body.username && req.body.password) {
+      res.jsonp({access_token: fakeToken})
+    } else {
+      res.statusCode = 403;
+      res.jsonp({errors: [{message: 'invalid username or password: NOT A CANNONICAL MESSAGE'}]})
+    }
   })
 
   // To handle POST, PUT and PATCH you need to use a body-parser

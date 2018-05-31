@@ -1,9 +1,9 @@
 {
   "name": "@flixpress/frixxer-news-mock-servers",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "Local dev for Frixxer News apps",
   "scripts": {
-    "fnmock": "frixxer-mock-servers",
+    "fnmock": "frixxer-news-mock-servers",
     "prepublishOnly": "node prepublish.js"
   },
   "bin": {
