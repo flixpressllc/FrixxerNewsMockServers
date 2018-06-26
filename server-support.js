@@ -297,7 +297,7 @@ module.exports = {
       res.statusCode = code
       if (code > 199 && code < 300) {
         const dataName = db.shotlayouts.find(sl => sl.id === shot.relationships.shotLayout.id)
-          .definition.inputDefinitions.find(idef => idef.inputType === 'StudioVideo').name;
+          .definition.inputDefinitions.find(idef => ['StudioVideo', 'StudioAudio'].includes(idef.inputType)).name;
         shot.shotData.inputValues = shot.shotData.inputValues.map(iv => {
           if (iv.name === dataName) {
             iv.values = [bodyObj.data[0].mediaFileId.toString()]
