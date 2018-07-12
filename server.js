@@ -89,7 +89,7 @@ function startNewServer () {
   server.post('/segments/:id/preview', support.previewSegment)
   server.post('/packages/:id/order', support.orderPackage(router.db))
 
-  server.get('/shotlayouts/:id/newShot', support.getNewShot)
+  server.get('/shotlayouts/:id/newShot', support.getNewShot(router.db))
   server.get('/segmenttypes/:id/newSegment', support.getNewSegment)
   server.get('/packagetemplates/:id/newPackage', support.getNewPackage)
   server.get('/packages/:id/shotswithselffulfillment', support.getUnfulfilledShotIdsByPackage(router.db))

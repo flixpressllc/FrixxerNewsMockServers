@@ -1,6 +1,12 @@
 const request = require('request')
 const { getMyIpAddress } = require('./ipAddressHelpers')
 
+function getLodashWrappedEntityById(entityName, lodashWrappedDB, req) {
+  const db = lodashWrappedDB.getState()
+  const eId = parseInt(req.params.id, 10)
+  return db[entityName].find(e => e.id === eId )
+}
+
 class Shot {
   constructor (shotLayout) {
     this.type = 'shots'
@@ -163,12 +169,9 @@ function deleteSegment(segmentId, db) {
 }
 
 module.exports = {
-  getNewShot: (req, res) => {
-    req.runMiddleware(`/shotlayouts/${req.params.id}`, (code, body) => {
-      // console.log(body)
-      const shotLayoutData = JSON.parse(body).data
-      res.jsonp({data: new Shot(shotLayoutData)})
-    })
+  getNewShot: (lodashWrappedDb) => (req, res) => {
+    const shotLayoutData = getLodashWrappedEntityById('shotlayouts', lodashWrappedDb, req);
+    res.jsonp({data: new Shot(shotLayoutData)})
   },
   getNewNewscast: (req, res) => {
     res.jsonp({data: new Newscast()})
@@ -331,7 +334,7 @@ module.exports = {
     }
   },
   getTemplates: (lodashWrappedDb) => (req, res) => {
-    req.runMiddleware(`/templates/`, (code, body) => {
+    req.runMiddleware(`/templates`, (code, body) => {
       res.statusCode = code
       let records = JSON.parse(body).data
       records = records.map(template => {
