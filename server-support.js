@@ -334,15 +334,12 @@ module.exports = {
     }
   },
   getTemplates: (lodashWrappedDb) => (req, res) => {
-    req.runMiddleware(`/templates`, (code, body) => {
-      res.statusCode = code
-      let records = JSON.parse(body).data
-      records = records.map(template => {
-        const {id, type, name, imageUrl, previewUrl} = template
-        return {id, type, name, imageUrl, previewUrl}
-      })
-      console.warn('not supplying real pagination')
-      res.jsonp({data: {records}})
-    })    
+    let records = lodashWrappedDb.getState().templates
+    records = records.map(template => {
+      const {id, type, name, imageUrl, previewUrl} = template
+      return {id, type, name, imageUrl, previewUrl}
+    })
+    console.warn('not supplying real pagination')
+    res.jsonp({data: {records}})
   },
 }
