@@ -39,7 +39,7 @@ const data = {
           id: 1
         },
         peripherals: [],
-        packageTemplate: { type: 'package-templates', id: 1 }
+        packageTemplate: {type: 'package-templates', id: 1}
       },
       id: 1
     },
@@ -54,7 +54,7 @@ const data = {
           id: 1
         },
         peripherals: [],
-        packageTemplate: { type: 'package-templates', id: 1 }
+        packageTemplate: {type: 'package-templates', id: 1}
       },
       id: 2
     },
@@ -70,7 +70,7 @@ const data = {
           id: 2
         },
         peripherals: [],
-        packageTemplate: { type: 'package-templates', id: 1 }
+        packageTemplate: {type: 'package-templates', id: 1}
       },
       id: 3
     }
@@ -112,9 +112,9 @@ const data = {
           id: 1
         },
         shots: [
-          { type: 'shots', id: 1 },
-          { type: 'shots', id: 2 },
-          { type: 'shots', id: 3 }
+          {type: 'shots', id: 1},
+          {type: 'shots', id: 2},
+          {type: 'shots', id: 3}
         ]
       }
     },
@@ -128,9 +128,9 @@ const data = {
           id: 1
         },
         shots: [
-          { type: 'shots', id: 4 },
-          { type: 'shots', id: 5 },
-          { type: 'shots', id: 6 }
+          {type: 'shots', id: 4},
+          {type: 'shots', id: 5},
+          {type: 'shots', id: 6}
         ]
       }
     }
@@ -228,10 +228,10 @@ const data = {
               maximum: 1
             },
             selectOptions: [
-              { label: 'one', value: '1' },
-              { label: 'two', value: '2' },
-              { label: 'three', value: '3' },
-              { label: 'four', value: '4' }
+              {label: 'one', value: '1'},
+              {label: 'two', value: '2'},
+              {label: 'three', value: '3'},
+              {label: 'four', value: '4'}
             ],
             defaultValues: ['1', '3']
           },
@@ -244,10 +244,10 @@ const data = {
               maximum: 1
             },
             selectOptions: [
-              { label: 'one', value: '1' },
-              { label: 'two', value: '2' },
-              { label: 'three', value: '3' },
-              { label: 'four', value: '4' }
+              {label: 'one', value: '1'},
+              {label: 'two', value: '2'},
+              {label: 'three', value: '3'},
+              {label: 'four', value: '4'}
             ],
             defaultValues: ['2']
           }
@@ -358,10 +358,10 @@ const data = {
               maximum: 1
             },
             selectOptions: [
-              { label: 'one', value: '1' },
-              { label: 'two', value: '2' },
-              { label: 'three', value: '3' },
-              { label: 'four', value: '4' }
+              {label: 'one', value: '1'},
+              {label: 'two', value: '2'},
+              {label: 'three', value: '3'},
+              {label: 'four', value: '4'}
             ],
             defaultValues: ['1', '3']
           },
@@ -374,10 +374,10 @@ const data = {
               maximum: 1
             },
             selectOptions: [
-              { label: 'one', value: '1' },
-              { label: 'two', value: '2' },
-              { label: 'three', value: '3' },
-              { label: 'four', value: '4' }
+              {label: 'one', value: '1'},
+              {label: 'two', value: '2'},
+              {label: 'three', value: '3'},
+              {label: 'four', value: '4'}
             ],
             defaultValues: ['2']
           }
@@ -488,10 +488,10 @@ const data = {
               maximum: 1
             },
             selectOptions: [
-              { label: 'one', value: '1' },
-              { label: 'two', value: '2' },
-              { label: 'three', value: '3' },
-              { label: 'four', value: '4' }
+              {label: 'one', value: '1'},
+              {label: 'two', value: '2'},
+              {label: 'three', value: '3'},
+              {label: 'four', value: '4'}
             ],
             defaultValues: ['1', '3']
           },
@@ -504,10 +504,10 @@ const data = {
               maximum: 1
             },
             selectOptions: [
-              { label: 'one', value: '1' },
-              { label: 'two', value: '2' },
-              { label: 'three', value: '3' },
-              { label: 'four', value: '4' }
+              {label: 'one', value: '1'},
+              {label: 'two', value: '2'},
+              {label: 'three', value: '3'},
+              {label: 'four', value: '4'}
             ],
             defaultValues: ['2']
           }
@@ -556,11 +556,11 @@ const data = {
       id: 1,
       type: 'shots',
       relationships: {
-        shotLayout: { type: 'shot-layouts', id: 1 },
-        segment: { type: 'segments', id: 1 }
+        shotLayout: {type: 'shot-layouts', id: 1},
+        segment: {type: 'segments', id: 1}
       },
       shotData: {
-        durationInSeconds: 7.27,
+        durationInSeconds: 3.27,
         inputValues: [
           {
             name: 'main_video',
@@ -568,15 +568,15 @@ const data = {
           },
           {
             name: 'graphic',
-            values: ['1']
+            values: [ '1' ]
           },
           {
             name: 'text_1',
-            values: ['some value']
+            values: [ 'some value' ]
           },
           {
             name: 'copy',
-            values: ['This is the stuff that the anchor will speak. {% pause(3) %} And that is all.']
+            values: ['This is the stuff that the anchor will speak. And that is all.']
           }
         ]
       }
@@ -585,8 +585,8 @@ const data = {
       id: 2,
       type: 'shots',
       relationships: {
-        shotLayout: { type: 'shot-layouts', id: 3 },
-        segment: { type: 'segments', id: 1 }
+        shotLayout: {type: 'shot-layouts', id: 3},
+        segment: {type: 'segments', id: 1}
       },
       shotData: {
         durationInSeconds: 5,
@@ -602,15 +602,15 @@ const data = {
       id: 3,
       type: 'shots',
       relationships: {
-        shotLayout: { type: 'shot-layouts', id: 2 },
-        segment: { type: 'segments', id: 1 }
+        shotLayout: {type: 'shot-layouts', id: 2},
+        segment: {type: 'segments', id: 1}
       },
       shotData: {
         durationInSeconds: 5,
         inputValues: [
           {
             name: 'choose_all_1',
-            values: ['1', '3', '4']
+            values: [ '1', '3', '4' ]
           },
           {
             name: 'choose_single_1',
@@ -623,8 +623,8 @@ const data = {
       id: 4,
       type: 'shots',
       relationships: {
-        shotLayout: { type: 'shot-layouts', id: 1 },
-        segment: { type: 'segments', id: 2 }
+        shotLayout: {type: 'shot-layouts', id: 1},
+        segment: {type: 'segments', id: 2}
       },
       shotData: {
         durationInSeconds: 10.27,
@@ -635,11 +635,11 @@ const data = {
           },
           {
             name: 'graphic',
-            values: ['1']
+            values: [ '1' ]
           },
           {
             name: 'text_1',
-            values: ['some value']
+            values: [ 'some value' ]
           },
           {
             name: 'copy',
@@ -652,8 +652,8 @@ const data = {
       id: 5,
       type: 'shots',
       relationships: {
-        shotLayout: { type: 'shot-layouts', id: 1 },
-        segment: { type: 'segments', id: 2 }
+        shotLayout: {type: 'shot-layouts', id: 1},
+        segment: {type: 'segments', id: 2}
       },
       shotData: {
         durationInSeconds: 9.87,
@@ -664,11 +664,11 @@ const data = {
           },
           {
             name: 'graphic',
-            values: ['1']
+            values: [ '1' ]
           },
           {
             name: 'text_1',
-            values: ['some value']
+            values: [ 'some value' ]
           },
           {
             name: 'copy',
@@ -681,8 +681,8 @@ const data = {
       id: 6,
       type: 'shots',
       relationships: {
-        shotLayout: { type: 'shot-layouts', id: 1 },
-        segment: { type: 'segments', id: 2 }
+        shotLayout: {type: 'shot-layouts', id: 1},
+        segment: {type: 'segments', id: 2}
       },
       shotData: {
         durationInSeconds: 10,
@@ -693,11 +693,11 @@ const data = {
           },
           {
             name: 'graphic',
-            values: ['1']
+            values: [ '1' ]
           },
           {
             name: 'text_1',
-            values: ['some value']
+            values: [ 'some value' ]
           },
           {
             name: 'copy',
@@ -761,11 +761,11 @@ const data = {
                       },
                       {
                         name: 'graphic',
-                        values: ['1'],
+                        values: [ '1' ],
                       },
                       {
                         name: 'text_1',
-                        values: ['some value'],
+                        values: [ 'some value' ],
                       },
                       {
                         name: 'copy',
@@ -785,11 +785,11 @@ const data = {
                       },
                       {
                         name: 'graphic',
-                        values: ['1'],
+                        values: [ '1' ],
                       },
                       {
                         name: 'text_1',
-                        values: ['some value'],
+                        values: [ 'some value' ],
                       },
                       {
                         name: 'copy',
@@ -809,11 +809,11 @@ const data = {
                       },
                       {
                         name: 'graphic',
-                        values: ['1'],
+                        values: [ '1' ],
                       },
                       {
                         name: 'text_1',
-                        values: ['some value'],
+                        values: [ 'some value' ],
                       },
                       {
                         name: 'copy',
@@ -858,11 +858,11 @@ const data = {
                     },
                     {
                       name: 'graphic',
-                      values: ['1'],
+                      values: [ '1' ],
                     },
                     {
                       name: 'text_1',
-                      values: ['some value'],
+                      values: [ 'some value' ],
                     },
                     {
                       name: 'copy',
@@ -882,11 +882,11 @@ const data = {
                     },
                     {
                       name: 'graphic',
-                      values: ['1'],
+                      values: [ '1' ],
                     },
                     {
                       name: 'text_1',
-                      values: ['some value'],
+                      values: [ 'some value' ],
                     },
                     {
                       name: 'copy',
@@ -906,11 +906,11 @@ const data = {
                     },
                     {
                       name: 'graphic',
-                      values: ['1'],
+                      values: [ '1' ],
                     },
                     {
                       name: 'text_1',
-                      values: ['some value'],
+                      values: [ 'some value' ],
                     },
                     {
                       name: 'copy',
@@ -950,11 +950,11 @@ const data = {
                 },
                 {
                   name: 'graphic',
-                  values: ['1'],
+                  values: [ '1' ],
                 },
                 {
                   name: 'text_1',
-                  values: ['some value'],
+                  values: [ 'some value' ],
                 },
                 {
                   name: 'copy',
@@ -974,11 +974,11 @@ const data = {
                 },
                 {
                   name: 'graphic',
-                  values: ['1'],
+                  values: [ '1' ],
                 },
                 {
                   name: 'text_1',
-                  values: ['some value'],
+                  values: [ 'some value' ],
                 },
                 {
                   name: 'copy',
@@ -998,11 +998,11 @@ const data = {
                 },
                 {
                   name: 'graphic',
-                  values: ['1'],
+                  values: [ '1' ],
                 },
                 {
                   name: 'text_1',
-                  values: ['some value'],
+                  values: [ 'some value' ],
                 },
                 {
                   name: 'copy',
@@ -1036,11 +1036,11 @@ const data = {
             },
             {
               name: 'graphic',
-              values: ['1'],
+              values: [ '1' ],
             },
             {
               name: 'text_1',
-              values: ['some value'],
+              values: [ 'some value' ],
             },
             {
               name: 'copy',
@@ -1051,7 +1051,6 @@ const data = {
       }),
     },
   ],
-};
+}
 
-module.exports = data;
-
+module.exports = data
